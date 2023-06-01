@@ -71,11 +71,11 @@ def find_alone_token(tokenTx, t):
                 D = 1000
             
             try:
-                Tg = S_y[j][0] * math.sin((S_y[j][1] - S_x[i][1]) * (math.pi / 180)) # projection of the token of type different from tokenTx that i don't want to hit, on the normal respect the direction to the token Tx ( so if it's less then half the track gouge it would be hitted)
+                Tg1 = S_y[j][0] * math.sin((S_y[j][1] - S_x[i][1]) * (math.pi / 180)) # projection of the token of type different from tokenTx that i don't want to hit, on the normal respect the direction to the token Tx ( so if it's less then half the track gouge it would be hitted)
             except:
-                Tg = 10
+                Tg1 = 10
             
-            if D <= t or (abs(Tg) < 0.4 and S_y[j][0] < S_x[i][0]) : # in both the cases...
+            if D <= t or (abs(Tg1) < 0.4 and S_y[j][0] < S_x[i][0]) : # in both the cases...
             	a = 1
         if a == 1:
             S_x.pop(i) # remove it from the list
@@ -102,11 +102,11 @@ def Move_to_token(tokenTx, d_th):
         elif -a_th <= rot_y <= a_th:  
             """ in this case we're alligned with the token and we've just to reach it"""
             print("straight in front of me")
-            drive(10, 0.5)
+            drive(20, 0.5)
         elif -90 < rot_y < -a_th:
             """ in this case to allign with the token we've to turn left a bit"""
             print("left a bit...")
-            turn(-3, 0.5)
+            turn(-1, 0.5)
         elif 90 > rot_y > a_th:
             """ in this case to allign with the token we've to turn right a bit"""
             print("right a bit...")
@@ -136,7 +136,7 @@ def main():
             Move_to_token(tokenTx, 0.5)
             R.release()
             print("released a silver token")
-            drive(-10, 1.5) # to avoid hitting the robot with the released token
+            drive(-20, 1.5) # to avoid hitting the robot with the released token
             turn(12, 2.5)		
             tokenTx = MARKER_TOKEN_SILVER
             print("time for a silver one")
