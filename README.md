@@ -1,5 +1,10 @@
 Python Robotics Simulator
 ================================
+In the report a brief statistical analysis will be developed to prove the thesis hereafter reported, to compare the performances of the two algorithms coded in the scripts assignment_test.py and assignment_control.py respectively called test and control algorithm. 
+thesis:
+```
+The assignment_test.py algorithm will hit less token during its motion respect the assignment_control.py one, but on other hand it will be less effective, meaning that in the same time window it will couple less tokens, on a normal random distribution of the tokens in the environment.
+```
 
 This is a simple, portable robot simulator developed by [Student Robotics](https://studentrobotics.org).
 Some of the arenas and the exercises have been modified for the Research Track I course
@@ -11,6 +16,29 @@ The simulator requires a Python 2.7 installation, the [pygame](http://pygame.org
 
 Once the dependencies are installed, simply run the `test.py` script to test out the simulator.
 
+Statistical required changes
+----------------------------
+The two algorithms, assignment_test.py and assignment_control.py,  used for the experiment can be found in the relative repositories [test](https://github.com/jek97/Robot-organizer.git) and [control](https://github.com/teolima99/first_assignment_Research-track.git)
+In order to test the thesis some modification on both the algorithm and the simulation have been done:
+1. Algorithms: to allow a fair comparison between the number of token’s couple in the same time window in both the algorithms the driving speed on the drive() methods has been set to 20.
+2. Simulation: the arena script used for the testing can be opened under the path, from the root folder of the repository, with the command:
+```
+gedit robot-sim/sr/robot/arenas/two_colours_assignment_arena.py
+```
+In it a new method has been created to randomly place the tokens in the environment moreover, to allow a repetition of the experiment the random distribution seed has been made explicit:
+```
+def place_token_random(TOKENS_PER_TYPE, type, seed):
+    random.seed(seed)
+    for i in range(TOKENS_PER_TYPE):
+        token_type = type
+        token = token_type(self, i)
+        token.location = (random.uniform(-2.5, 2.5),
+                              random.uniform(-2.5, 2.5))
+        token.heading = random.uniform(-pi, pi)
+        self.objects.append(token)
+```
+Indeed it’s possible each time to specify the number of tokens per type, the type of the token and the random seed to use for the distribution; once the seed is set the method will proceed by creating the right number of token specified, of the given type and in a random location inside the environment with a random heading.
+The random seed will be specified for each trial.
 
 Robot API
 ---------
